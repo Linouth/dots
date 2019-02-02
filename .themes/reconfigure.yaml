@@ -1,0 +1,26 @@
+$substitution_source: 'dracula.yaml'
+
+i3:
+    infiles: '~/.config/i3/config.base'
+    outfile: '~/.config/i3/config'
+    substitute: True
+
+alacritty:
+    infiles: '~/.config/alacritty/alacritty.base.yml'
+    outfile: '~/.config/alacritty/alacritty.yml'
+    substitute: True
+
+rofi:
+    infiles: '~/.config/rofi/flat.base.rasi'
+    outfile: '~/.config/rofi/flat.rasi'
+    substitute: True
+
+xresources:
+    infiles: '~/.Xresources.base'
+    outfile: '~/.Xresources'
+    substitute: True
+
+polybar:
+    infiles: '~/.config/polybar/config.base'
+    outfile: '~/.config/polybar/config'
+    substitute: True
