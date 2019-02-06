@@ -24,8 +24,8 @@ set $borders    1
 # Gap sizes
 set $gapso      10
 set $gapsi      15
-set $pgapso     2
-set $pgapsi     4
+set $agapso     2
+set $agapsi     4
 
  
 ### Colors
