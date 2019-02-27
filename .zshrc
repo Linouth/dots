@@ -52,7 +52,7 @@ function git_prompt_info() {
 
 # Source Antibody and load plugins
 source <(antibody init)
-antibody bundle < .zsh_plugins
+antibody bundle < $HOME/.zsh_plugins
 
 # Enable LS colors
 eval $( dircolors -b $HOME/.config/LS_COLORS )
@@ -62,3 +62,5 @@ alias ls='ls --color'
 
 # Aliases
 alias dots='git --git-dir=$HOME/.dots.git/ --work-tree=$HOME'
+alias open='xdg-open'
+alias la='ls -la'
