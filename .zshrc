@@ -40,6 +40,7 @@ setopt promptsubst
 # Set env variables
 path+=$HOME/bin
 path+=$HOME/src/esp/xtensa-esp32-elf/bin
+path+=$HOME/.local/bin
 export IDF_PATH=$HOME/src/esp/esp-idf
 
 # Add git prompt function

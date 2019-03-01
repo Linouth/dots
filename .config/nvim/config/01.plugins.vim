@@ -3,7 +3,7 @@
 " ----------------------------
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 " Plug 'arcticicestudio/nord-vim'
 Plug 'flazz/vim-colorschemes'
 

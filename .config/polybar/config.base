@@ -7,7 +7,7 @@ alert      = $color9
 
 [bar/top]
 width = 100%
-height = 29
+height = 40
 radius = 0.0
 fixed-center = true
 
@@ -24,12 +24,12 @@ padding = 0
 
 module-margin = 1
 
-font-0 = "Hack:style=Regular:size=10:antialias=true;3"
-font-1 = "Hack Nerd Font:style=Regular:size=12:antialias=true;3"
+font-0 = "Hack:style=Regular:size=15:antialias=true;3"
+font-1 = "Hack Nerd Font:style=Regular:size=15:antialias=true;3"
 
 modules-left = i3 music
 modules-center = 
-modules-right = alsa memory date
+modules-right = network alsa memory battery date
 
 ;override-redirect = true
 ;wm-restack = i3
@@ -48,6 +48,35 @@ time = "%H:%M"
 label = %{F${colors.primary}%{F-} %date%    %time%
 label-background = ${colors.secondary}
 label-padding = 3
+
+
+[module/battery]
+type = internal/battery
+full-at = 99
+battery = BAT1
+adapter = ACAD
+
+format-charging = <label-charging>
+label-charging = ﮣ %percentage%%
+format-discharging = <ramp-capacity> <label-discharging>
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+
+[module/network]
+type = internal/network
+interface = wlan0
+
+label-connected = 直 %essid%
+label-disconnected = 睊
 
 
 [module/i3]

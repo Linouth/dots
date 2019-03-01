@@ -16,3 +16,5 @@
 *.color14:    $color14
 *.color7:     $color7
 *.color15:    $color15
+
+Xft.dpi: 168

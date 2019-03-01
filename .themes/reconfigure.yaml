@@ -1,3 +1,4 @@
+# $substitution_source: 'base16-seti.yaml'
 $substitution_source: 'dracula.yaml'
 
 i3:
