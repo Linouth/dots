@@ -66,11 +66,11 @@ for_window [title="dropdown"] resize set 1400 800
 
 ### Autostart
 
-# Launch compton
-exec --no-startup-id compton
-
 # Setting wallpaper
 exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/.wallpaper
+
+# Launch compton
+exec --no-startup-id compton
 
 # Launch Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -273,13 +273,22 @@ bindsym XF86AudioRaiseVolume    exec --no-startup-id amixer -c 0 set Master 2+
 bindsym XF86AudioLowerVolume    exec --no-startup-id amixer -c 0 set Master 2-
 bindsym XF86AudioMute           exec --no-startup-id amixer -c 0 set Master toggle
 
-# Toggle headphones (desktop)
-bindsym $mod+XF86AudioMute      exec --no-startup-id amixer -c 0 set 'Front Panel' toggle
+# Toggle headphones
+# bindsym $mod+XF86AudioMute      exec --no-startup-id amixer -c 0 set 'Front Panel' toggle
+bindsym $mod+F6      exec --no-startup-id ~/bin/toggle-headphones
 
 # Music controls
 bindsym XF86AudioPlay           exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext           exec --no-startup-id playerctl next
 bindsym XF86AudioPrev           exec --no-startup-id playerctl previous
+
+# Change screen brightness
+bindsym XF86MonBrightnessUp     exec --no-startup-id light -A 10
+bindsym XF86MonBrightnessDown   exec --no-startup-id light -U 10
+bindsym $mod+F3                 exec --no-startup-id light -S 70
+bindsym Shift+F3                exec --no-startup-id light -A 1
+bindsym $mod+F2                 exec --no-startup-id light -S 1
+bindsym Shift+F2                exec --no-startup-id light -U 1
 
 # Take Screenshot
 bindsym --release Print         exec --no-startup-id scrot -q85 -s '~/Pictures/Screenshots/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' -e 'echo -n $f | xsel --clipboard'
