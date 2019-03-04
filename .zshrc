@@ -1,6 +1,8 @@
 # Fix completion
 autoload -Uz compinit
 compinit
+# Case insensitive tab complete
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 
 # Enable menu for completion (with VIM bindings)
 zstyle ':completion:*' menu select
@@ -13,6 +15,14 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 bindkey '^n' expand-or-complete
 bindkey '^p' reverse-menu-complete
+
+# Add some keybindings
+bindkey '^[[H'      beginning-of-line
+bindkey '^[[F'      end-of-line
+bindkey '^[[3~'     delete-char
+bindkey '^[[1;5C'   forward-word
+bindkey '^[[1;5D'   backward-word
+bindkey '^H'        backward-delete-word
 
 # Configure command history
 HISTFILE="$HOME/.zhistory"
@@ -40,6 +50,7 @@ setopt promptsubst
 # Set env variables
 path+=$HOME/bin
 path+=$HOME/src/esp/xtensa-esp32-elf/bin
+path+=$HOME/.local/bin
 export IDF_PATH=$HOME/src/esp/esp-idf
 
 # Add git prompt function
