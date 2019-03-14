@@ -76,7 +76,7 @@ exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/.wallpaper
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Launch redshift
-exec --no-startup-id redshift -l 52.5125:6.09444
+exec --no-startup-id redshift -l 52.5125:6.09444 -t 6500:3000
 
 
 ### Borders and Gaps
