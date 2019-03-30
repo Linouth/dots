@@ -6,7 +6,7 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 """ Highlighter
-let g:highlighter#auto_update = 2
+let g:highlighter#auto_update = 1
 let g:highlighter#project_root_signs = ['.git']
 
 """ CoC
@@ -29,3 +29,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status'
       \ },
       \ }
+
+""" NeoTags
+let g:neotags_run_ctags = 0
