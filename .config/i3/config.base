@@ -5,6 +5,7 @@
 ### Definitions
 
 set $mod        Mod1
+set $sup        Mod4
 
 # Default programs
 set $terminal   alacritty
@@ -215,6 +216,7 @@ bindsym $mod+Shift+k        move up
 
 bindsym $mod+l              focus right
 bindsym $mod+Shift+l        move right
+bindsym $sup+l              exec --no-startup-id dm-tool lock
 
 bindsym $mod+m              gaps inner current set $gapsi; gaps outer current set $gapso
 bindsym $mod+Shift+m        gaps inner current set $agapsi; gaps outer current set $agapso
