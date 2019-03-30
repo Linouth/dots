@@ -33,7 +33,7 @@ set showcmd         " show current command
 set backspace=indent,eol,start  " allow backspacing over everything
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow 0 inserts
 set lazyredraw      " skip redrawing screen in some cases
-set autochdir       " automatically cd to dir of last opened file
+" set autochdir       " automatically cd to dir of last opened file
 set hidden          " allow auto-hiding of edited buffers
 set history=8192    " more history
 set clipboard=unnamedplus       " set clipboard to ctrl-v instead of mousewheel
@@ -47,6 +47,9 @@ set softtabstop=4
 " smart case-sensitive search
 set ignorecase
 set smartcase
+
+" Add recursive find paths
+set path+=**
 
 " tab completion for files/buffers
 set wildmode=longest,list
@@ -62,4 +65,9 @@ set mouse+=a        " enable mouse mode (scrolling, selection, etc)
 set splitbelow
 set splitright
 
+set termguicolors
 colorscheme dracula
+
+command! MakeTags !ctags -R .
+
+set updatetime=300
