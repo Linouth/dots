@@ -67,7 +67,7 @@ for_window [title="dropdown"] resize set 1400 800
 ### Autostart
 
 # Launch compton
-exec --no-startup-id compton
+# exec --no-startup-id compton
 
 # Setting wallpaper
 exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/.wallpaper
