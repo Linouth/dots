@@ -56,6 +56,9 @@ set wildmode=longest,list
 set wildmenu
 set mouse+=a        " enable mouse mode (scrolling, selection, etc)
 
+" Change leader
+let mapleader = ","
+
 
 " -------------------
 " Misc configurations

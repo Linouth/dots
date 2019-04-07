@@ -10,6 +10,7 @@ nnoremap <C-H> <C-W><C-H>
 
 " bind F3 to search highlighting
 nnoremap <F3> :set hlsearch!<CR>
+nnoremap <C-l> :set hlsearch!<CR>
 
 " toggle relative numbering
 nnoremap <C-n> :set rnu!<CR>
@@ -27,6 +28,11 @@ nnoremap gn :ls<CR>:buffer<Space>
 
 " Abbreviate :vert sf to :vsf
 cnoreabbrev vsf vert sf
+
+" New tap/split with netrw
+nnoremap <Leader>t :tabe.<CR>
+nnoremap <Leader>v :vsp.<CR>
+nnoremap <Leader>s :sp.<CR>
 
 " VimRC edit and reload
 nnoremap gev :e $MYVIMRC<CR>
