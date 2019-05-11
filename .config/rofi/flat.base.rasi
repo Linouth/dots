@@ -1,0 +1,64 @@
+* {
+    highlights:         $highlights;
+    foreground:         $foreground;
+    background:         $background;
+    selection:          $selection;
+
+    inputpadding:       8px 12px;
+
+    scrollbarcolor:     $background;
+    font:               "Hack 15";
+    background-color:   @background;
+}
+
+#window {
+    anchor: north;
+    location: north;
+    width: 25%;
+}
+
+#mainbox {
+    background-color: @background;
+}
+
+#inputbar {
+    background-color: @selection;
+}
+
+#case-indicator {
+    background-color: @selection;
+}
+
+#prompt {
+    background-color: @highlights;
+    text-color: @background;
+    text-style: bold;
+    padding: @inputpadding;
+}
+
+#entry {
+    background-color: @selection;
+    text-color: @foreground;
+    padding: @inputpadding;
+}
+
+
+#listview {
+    background-color: @background;
+    text-color: @foreground;
+    padding: 12;
+    fixed-height: false;
+    dynamic: true;
+    scrollbar: false;
+    lines: 10;
+}
+
+#element {
+    //background-color: @background;
+    text-color: @foreground;
+    padding: 10px 8px;
+}
+#element.selected {
+    background-color: @selection;
+    text-color: @highlights;
+}

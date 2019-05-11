@@ -10,6 +10,7 @@ nnoremap <C-H> <C-W><C-H>
 
 " bind F3 to search highlighting
 nnoremap <F3> :set hlsearch!<CR>
+nnoremap <C-l> :set hlsearch!<CR>
 
 " toggle relative numbering
 nnoremap <C-n> :set rnu!<CR>
@@ -27,6 +28,11 @@ nnoremap gn :ls<CR>:buffer<Space>
 
 " Abbreviate :vert sf to :vsf
 cnoreabbrev vsf vert sf
+
+" New tap/split with netrw
+nnoremap <Leader>t :tabe.<CR>
+nnoremap <Leader>v :vsp.<CR>
+nnoremap <Leader>s :sp.<CR>
 
 " VimRC edit and reload
 nnoremap gev :e $MYVIMRC<CR>
@@ -72,6 +78,12 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " CocList bindings
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
@@ -83,6 +95,12 @@ nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Search files in cwd
+nnoremap <silent> <space>f  :<C-u>CocList files<cr>
+" Grep files in cwd
+nnoremap <silent> <space>g  :<C-u>CocList -I grep<cr>
+" Search buffer
+nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
 " Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
