@@ -18,4 +18,6 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': 'yarn install --frozen-lockfile'}
 
 Plug 'KeitaNakamura/highlighter.nvim'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
