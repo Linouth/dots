@@ -1,5 +1,9 @@
 #!/bin/sh
 
-[ -z "$1" ] || [ -z "$2" ] && echo "Usage: win_resize <x> <y>" && exit
+[ -z "$1" ] || [ -z "$2" ] && echo "Usage: win_resize <x> <y> [window_id]" && exit
 
-xdotool windowsize $(xdotool getwindowfocus) "$1" "$2"
+if [[ -z "$3" ]]; then
+    xdotool windowsize $(xdotool getwindowfocus) "$1" "$2"
+else
+    xdotool windowsize "$3" "$1" "$2"
+fi

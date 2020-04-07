@@ -1,29 +1,41 @@
 #!/bin/bash
 
-if [ -z "$1" ] || [ -z "$2" ]; then
-    echo 'Usage: ddspawn <instance> <cmd> [-s] [-r WxH] [-p X+Y]'
-    exit
-fi
+function get_window_id {
+    printf %i $(xwininfo -tree -root | awk -v class="$1" '$4 ~ class {print $1}')
+}
 
 # Set index for getopts
 OPTIND=3
 
-instance="[instance=\"$1\"]"
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo 'Usage: ddspawn <class> <cmd> [-s] [-r WxH] [-p X+Y]'
+    exit
+fi
 
-if xwininfo -tree -root | grep "(\"$1\" "; then
+class="dd$1"
+selector="[class=\"$class\"]"
+
+window_id=$(get_window_id "$class")
+
+if [[ $window_id -gt 0 ]]; then
     echo "Window detected, doing nothing."
-    i3-msg "$instance scratchpad show"
+    i3-msg "$selector scratchpad show"
 else
     echo "Spawning window."
-    i3-msg "exec alacritty --title dropdown --class $1 -e $2"
-    sleep .30 # Wait so command is executed
-    i3-msg "$instance scratchpad show"
+    i3-msg "exec kitty --class $class -e $2"
+    while true; do
+        sleep .15
+        window_id=$(get_window_id "$class")
+        [[ $window_id -gt 0 ]] && break
+    done
+    sleep .05
+    i3-msg "$selector scratchpad show"
 
     while getopts "sr:p:" option; do
         case $option in
             s) i3-msg "$instance sticky enable";;
-            r) win_resize ${OPTARG//x/ };;
-            p) win_relocate ${OPTARG//x/ };;
+            r) win_resize ${OPTARG//x/ } "$window_id";;
+            p) win_relocate ${OPTARG//x/ } "$window_id";;
             *) echo "Not a valid argument -$OPTARG";;
         esac
     done

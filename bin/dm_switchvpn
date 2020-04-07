@@ -1,0 +1,30 @@
+#!/bin/bash
+
+OVPN_PATH="$HOME/Documents/VPN"
+
+function get_path {
+    echo "FPF: $1" 1>&2
+    function profile_list {
+        if [[ ! -z $(pgrep openvpn) ]]; then
+            echo 'Disconnect'
+        fi
+
+        find -L "$1" -maxdepth 1 ! -path "$1" -printf "%P\n"
+    }
+
+    profile=$(profile_list $1 | rofi -dmenu -p VPN -i -matching fuzzy)
+    if [[ ! -z "$profile" && -d "$1/$profile" ]]; then
+        echo "$1/$profile" 1>&2
+        profile=$profile/$(get_path "$1/$profile")
+    fi
+
+    echo $profile
+}
+
+profile=$(get_path $OVPN_PATH)
+
+if [[ "$profile" == "Disconnect" ]]; then
+    sudo switchvpn 'Disconnect'
+elif [[ "$profile" =~ "ovpn" ]]; then
+    sudo switchvpn "$OVPN_PATH/$profile"
+fi

@@ -7,8 +7,9 @@
 set $mod        Mod1
 
 # Default programs
-set $terminal   alacritty
-set $browser    chromium
+set $terminal   kitty
+set $browser    firefox
+set $browser-alt qutebrowser
 
 # Some misc configs
 focus_follows_mouse             true
@@ -22,55 +23,53 @@ workspace_layout                default
 set $borders    1
  
 # Gap sizes
-set $gapso      10
-set $gapsi      15
-set $agapso     2
-set $agapsi     4
+set $gapso     2
+set $gapsi     4
+set $agapso      13
+set $agapsi      15
 
  
 ### Colors
-set $black 	$color0
-set $red	$color1
-set $green	$color2
-set $yellow	$color3
-set $blue	$color4
-set $magenta	$color5
-set $cyan	$color6
-set $gray	$color7
+set $black 	${color0}
+set $red	${color1}
+set $green	${color2}
+set $yellow	${color3}
+set $blue	${color4}
+set $magenta	${color5}
+set $cyan	${color6}
+set $gray	${color7}
 
-set $hgray    	$color8
-set $hred     	$color9
-set $hgreen   	$color10
-set $hyellow  	$color11
-set $hblue    	$color12
-set $hmagenta 	$color13
-set $hcyan    	$color14
-set $white    	$color15
+set $hgray    	${color8}
+set $hred     	${color9}
+set $hgreen   	${color10}
+set $hyellow  	${color11}
+set $hblue    	${color12}
+set $hmagenta 	${color13}
+set $hcyan    	${color14}
+set $white    	${color15}
  
  
 # Set border colors using Xresources data
 # class                     border      background  text        indicator
-client.focused              $highlights $highlights $white      $white
-client.focused_inactive     $hgray      $hgray      $white      $grey
+client.focused              ${highlights} ${highlights} $white      $white
+client.focused_inactive     $hgray      $hgray      $white      $gray
 client.unfocused            $hgray      $hgray      $hgray      $gray
 #client.urgent
 
 
 ### Dropdown config
-
-for_window [title="dropdown"] floating enable
-for_window [title="dropdown"] move scratchpad
-for_window [title="dropdown"] move position center
-for_window [title="dropdown"] resize set 1400 800
-
+for_window [class="^dd"] floating enable
+# for_window [class="^dd"] move position 1919 1079
+for_window [class="^dd"] move position center
+for_window [class="^dd"] move scratchpad
 
 ### Autostart
 
 # Launch compton
-exec --no-startup-id compton
+exec --no-startup-id picom
 
 # Setting wallpaper
-exec --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/.wallpaper
+exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/.wallpaper
 
 # Launch Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -78,11 +77,17 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # Launch redshift
 exec --no-startup-id redshift -l 52.5125:6.09444 -t 6500:3000
 
+# Set monitor layout
+exec --no-startup-id $HOME/bin/automon
+
+# Launch dunst
+exec --no-startup-id dunst
+
 
 ### Borders and Gaps
 
 hide_edge_borders   both
-smart_borders       no_gaps
+smart_borders       on
 new_float           pixel $borders
 new_window          pixel $borders
 
@@ -132,6 +137,18 @@ bindsym $mod+Shift+8        move container to workspace $ws8
 bindsym $mod+Shift+9        move container to workspace $ws9
 bindsym $mod+Shift+0        move container to workspace $ws0
 
+# Multihead workspacec
+workspace $ws1 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws2 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws3 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws4 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws5 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws6 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws7 output HDMI-0 DP-0 DP-1 eDP-1-1
+workspace $ws8 output eDP-1-1
+workspace $ws9 output eDP-1-1
+workspace $ws0 output eDP-1-1
+
 
 ### Modes
 
@@ -165,7 +182,7 @@ mode "resize" {
 ### Keybindings
 
 bindsym $mod+Return 		exec --no-startup-id $terminal
-bindsym $mod+Shift+Return	exec --no-startup-id ddspawn ddterm zsh -s -r 50%x50% -p centerxcenter
+bindsym $mod+Shift+Return	exec --no-startup-id "ddspawn ddterm zsh -s -r 50%x50% -p centerxcenter"
 
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space		    focus mode_toggle
@@ -183,17 +200,16 @@ bindsym $mod+Tab            workspace back_and_forth
 bindsym $mod+a              focus parent
 #bindsym $mod+Shift+a        
 
-bindsym $mod+b              focus child
+bindsym $mod+b              exec --no-startup-id polybar-msg cmd toggle
 #bindsym $mod+Shift+b        
 
-#bindsym $mod+c              
+bindsym $mod+c              focus child
 #bindsym $mod+Shift+c        
 
 bindsym $mod+d              exec --no-startup-id rofi -show run
 bindsym $mod+Shift+d        exec --no-startup-id rofi -show window
 
-bindsym $mod+e              exec --no-startup-id ddspawn ddranger ranger -s -p right-100xbottom-100
-#bindsym $mod+Shift+e        
+bindsym $mod+e              exec --no-startup-id "ddspawn ddranger ranger -s -r 40%x40% -p right-25xbottom-25"
 
 bindsym $mod+f              fullscreen
 #bindsym $mod+Shift+f        
@@ -222,19 +238,19 @@ bindsym $mod+Shift+m        gaps inner current set $agapsi; gaps outer current s
 bindsym $mod+n              gaps inner current set 0; gaps outer current set 0
 #bindsym $mod+Shift+n        
 
-#bindsym $mod+o              
+bindsym $mod+o              exec --no-startup-id "dm_switchvpn"
 #bindsym $mod+Shift+o        
 
-#bindsym $mod+p              
-#bindsym $mod+Shift+p        
+bindsym $mod+p              exec --no-startup-id "dm_switchmon"
+bindsym $mod+Shift+p        exec --no-startup-id "ddspawn ddlogbook 'nvim ~/logbook.md' -s -r 60%x60% -p centerxcenter"
 
-bindsym $mod+q              kill
+#bindsym $mod+q              kill
 bindsym $mod+Shift+q        kill
 
 bindsym $mod+r              mode "resize"
 #bindsym $mod+Shift+r        
 
-bindsym $mod+s              [title="^(?!dropdown)"] scratchpad show
+bindsym $mod+s              [class="^(?!dd)"] scratchpad show
 bindsym $mod+Shift+s        move scratchpad
 
 bindsym $mod+t              layout tabbed
@@ -246,7 +262,7 @@ bindsym $mod+Shift+t        layout splith
 bindsym $mod+v              split v
 #bindsym $mod+Shift+v        
 
-#bindsym $mod+w              
+bindsym $mod+w              exec $browser-alt 
 bindsym $mod+Shift+w        exec $browser
 
 #bindsym $mod+x              
@@ -281,16 +297,19 @@ bindsym XF86AudioPlay           exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext           exec --no-startup-id playerctl next
 bindsym XF86AudioPrev           exec --no-startup-id playerctl previous
 
+# Brightness controls
+bindsym XF86MonBrightnessUp         exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown       exec --no-startup-id light -U 5
+bindsym Shift+XF86MonBrightnessUp   exec --no-startup-id light -S 50
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id light -S 1
+
 # Take Screenshot
+# TODO: Update this
 bindsym --release Print         exec --no-startup-id scrot -q85 -s '~/Pictures/Screenshots/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' -e 'echo -n $f | xsel --clipboard'
 bindsym --release Shift+Print   exec --no-startup-id scrot -q85 -s '~/Pictures/Screenshots/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' -e '~/.bin/imgur.py $f 2>>~/Pictures/Screenshots/url_delete | xsel --clipboard'
 
 
 ### Program specific config
 
-assign [window_role="popup"]    floating enable
+assign 	            [window_role="popup"] floating enable
 for_window          [instance="floating"] floating enable
-
-
-
-

@@ -1,40 +1,26 @@
 #!/bin/sh
 
 userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
-# merge in defaults and keymaps
-
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
+if [ -f "$userresources" ]; then
+    xrdb -merge "$userresources"
 fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
-xkbcomp -w 0 ~/.config/xkbmap $DISPLAY
-
 
 if [ -d "$HOME/bin" ]; then
-    PATH="$HOME/bin:$PATH"
+    PATH="$PATH:$HOME/bin"
 fi
 
+# Prepare optimus-manger
+prime-offload
 
 # Run reconfigure script
-cd ~/.themes && python reconfigure.py; cd
+# rtk reconfigure
+cm --reconfigure
 
-exec i3
+# Launch WM
+case "$2" in
+	awesome|aw) exec awesome;;
+    custom)     exec "~/src/TinyWM/a.out";;
+    test)       exec "~/src/TinyWM/test";;
+    dwm)        exec "~/src/dwm/dwm";;
+	*)          exec i3;;
+esac

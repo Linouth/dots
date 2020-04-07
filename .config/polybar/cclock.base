@@ -1,0 +1,188 @@
+[colors]
+background = ${background}
+foreground = ${foreground}
+primary    = ${highlights}
+secondary  = ${selection}
+alert      = ${color9}
+
+
+[bar/top]
+width = 100%
+height = 25
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+
+font-0 = "Hack Nerd Font:style=Regular:size=8:antialias=true;3"
+
+modules-left = i3 music
+modules-center = 
+modules-right = nvidia vpn network alsa battery date
+
+module-margin = 1
+line-size = 1
+
+/* monitor = HDMI-0 */
+
+enable-ipc = true
+
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "%d %b"
+time = "%H:%M"
+
+label = " %date%  %{F${background}}%{B${highlights}}  %time%  %{F-}%{B-}"
+format-underline = ${highlights}
+
+[module/battery]
+type = internal/battery
+full-at = 99
+battery = BAT0
+adapter = ACAD
+
+format-discharging-padding = 0
+format-charging-padding = 0
+
+format-charging = <label-charging>
+label-charging = %{F${highlights}}ﮣ%{F-} %percentage%%
+format-discharging = %{F${highlights}}<ramp-capacity>%{F-} <label-discharging>
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+
+[module/network]
+type = internal/network
+interface = wlp82s0
+
+format-connected-padding = 0
+format-disconnected-padding = 0
+
+label-connected = %{F${highlights}}直%{F-} %essid%
+label-disconnected = %{F${highlights}}睊%{F-}
+
+
+[module/i3]
+type = internal/i3
+enable-click = true
+enable-scroll = false
+format = <label-state> <label-mode>
+
+format-margin = 0
+format-padding = 0
+format-background = ${colors.background}
+format-underline = ${colors.primary}
+
+label-mode-padding = 2
+label-mode-foreground = ${colors.background}
+label-mode-background = ${colors.alert}
+
+label-focused = %name%
+label-focused-foreground = ${colors.background}
+label-focused-background = ${colors.primary}
+label-focused-padding = 1
+
+label-unfocused = %name%
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-background = ${colors.background}
+label-unfocused-padding = 1
+
+label-visible = %name%
+label-visible-foreground = ${colors.primary}
+label-visible-background = ${colors.background}
+label-visible-padding = 1
+
+label-urgent = %name%
+label-urgent-foreground = ${colors.alert}
+label-urgent-background = ${colors.background}
+label-urgent-padding = 1
+
+
+[module/music]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-mpris-tail.py --icon-playing %{F${highlights}}%{F-} --icon-pause %{F${highlights}}%{F-} --icon-stopped 
+tail = true
+label = %output%
+click-left = playerctl play-pause
+
+format-padding = 2
+
+
+[module/vpn]
+type = custom/script
+exec = echo $(pgrep -a openvpn | awk '{ sub(".*/", "", $3); sub(".ovpn", "", $3); print $3; }')
+label = 嬨 %output%
+label-foreground = ${colors.background}
+label-background = ${colors.primary}
+label-padding = 2
+
+
+[module/nvidia]
+type = custom/script
+exec = optimus-manager --print-mode | grep 'nvidia'
+label = 
+label-foreground = ${colors.background}
+label-background = ${colors.primary}
+label-padding = 2
+
+
+[module/alsa]
+type = internal/alsa
+
+master-mixer = Master
+
+format-volume = %{F${highlights}}<ramp-volume>%{F-} <label-volume>
+label-muted = %{F${highlights}}ﱝ%{F-}
+
+format-volume-padding = 1
+format-muted-padding = 1
+
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+
+
+[module/memory]
+type = internal/memory
+label = ﬙ %percentage_used%%
+
+
+[module/menu]
+type = custom/menu
+
+menu-0-0 = 襤
+menu-0-0-exec = poweroff &
+menu-0-0-padding = 1
+menu-0-0-margin = 1
+menu-0-0-underline = ${colors.primary}
+menu-0-1 = ﰇ
+menu-0-1-exec = reboot &
+menu-0-1-padding = 1
+menu-0-1-margin = 1
+menu-0-1-underline = ${colors.primary}
+
+format-background = ${colors.secondary}
+format-padding = 0
+format-margin = 0
+format-spacing = 0
+
+label-open = 襤
+label-open-padding = 3
+
+label-close = x
+label-close-padding = 3
+label-close-background = ${colors.alert}
+
+expand-right = false

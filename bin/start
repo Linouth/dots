@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NVIDIA_DIR="/sys/class/drm/card1"
+DISPLAYS_ENABLED="/sys/class/drm/card1-DP-1/enabled /sys/class/drm/card1-DP-2/enabled /sys/class/drm/card1-HDMI-A-1/enabled"
+# if [[ -d "$DIR" ]]; then
+#     # Check if an external monitor is connected
+    
+#     optimus-manager --switch nvidia --no-confirm
+#     sudo prime-switch
+# fi
+
+
+# optimus_status=$(optimus-manager --status)
+# curr_mode=$(echo "$optimus_status" | awk '/Current/ {print($NF)}')
+# next_mode=$(echo "$optimus_status" | awk '/next login/ {print($NF)}')
+# if [[ "$next_mode" != "$curr_mode" ]]; then
+#     sudo prime-switch
+# fi
+
+startx
+sudo prime-switch

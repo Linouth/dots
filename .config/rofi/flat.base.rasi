@@ -1,13 +1,13 @@
 * {
-    highlights:         $highlights;
-    foreground:         $foreground;
-    background:         $background;
-    selection:          $selection;
+    highlights:         ${highlights};
+    foreground:         ${foreground};
+    background:         ${background};
+    selection:          ${selection};
 
     inputpadding:       6px 12px;
 
-    scrollbarcolor:     $background;
-    font:               "Hack 10";
+    scrollbarcolor:     ${background};
+    font:               "Hack 8";
     background-color:   @background;
 }
 
