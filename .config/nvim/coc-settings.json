@@ -6,6 +6,9 @@
 
     "codeLens.enable": true,
 
+    "python.jediEnabled": false,
+    "python.linting.enabled": true,
+
     "languageserver": {
         "ccls": {
             "command": "ccls",

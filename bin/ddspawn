@@ -23,12 +23,12 @@ if [[ $window_id -gt 0 ]]; then
 else
     echo "Spawning window."
     i3-msg "exec kitty --class $class -e $2"
+    sleep .08
     while true; do
-        sleep .15
         window_id=$(get_window_id "$class")
         [[ $window_id -gt 0 ]] && break
+        sleep .15
     done
-    sleep .05
     i3-msg "$selector scratchpad show"
 
     while getopts "sr:p:" option; do

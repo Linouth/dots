@@ -9,9 +9,16 @@ then
     EDID=$(cat /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/drm/card1/card1-HDMI-A-1/edid | parse-edid 2>/dev/null)
     MONITOR=$(awk '$1=="Identifier" { gsub("\"", "", $2); print $2 }' <<< $EDID)
 
+    echo $MONITOR
+
     case "$MONITOR" in
         "PL2480H")
             xrandr --output HDMI-0 --auto --output eDP-1-1 --auto --right-of HDMI-0
+            # nvidia-settings --assign CurrentMetaMode="HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}"
+            ;;
+        "DELL")
+            xrandr --output HDMI-0 --auto --output eDP-1-1 --auto --right-of HDMI-0
+            nvidia-settings --assign CurrentMetaMode="HDMI-0: nvidia-auto-select +0+0 {ForceCompositionPipeline=On}"
             ;;
     esac
 
