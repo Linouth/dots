@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ "$EUID" -ne "0" ]]; then
+    echo "Please run as root."
+    exit 1
+fi
+
+if [[ -z "$1" ]]; then
+    echo "Profile missing"
+    echo "Usage: switchvpn [ovpn_path]"
+    exit 2
+fi
+
+PID=$(pgrep openvpn)
+if [[ ! -z "$PID" ]]; then
+    echo "OpenVPN running, killing $PID"
+    kill $PID
+fi
+
+if [[ "$1" != "Disconnect" ]]; then
+    /usr/bin/openvpn $1
+fi

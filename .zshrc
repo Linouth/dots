@@ -46,12 +46,16 @@ bindkey '^j' history-search-forward
 autoload -U colors && colors
 setopt promptsubst
 
+# Fix java fonts...
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
 
 # Set env variables
 path+=$HOME/bin
-path+=$HOME/src/esp/xtensa-esp32-elf/bin
 path+=$HOME/.local/bin
+
+# Configure ESP-IDF
 export IDF_PATH=$HOME/src/esp/esp-idf
+alias idfexport='. $IDF_PATH/export.sh'
 
 # Add git prompt function
 function git_prompt_info() {
@@ -70,8 +74,16 @@ eval $( dircolors -b $HOME/.config/LS_COLORS )
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 alias ls='ls --color'
 
+# Source FZF plugins
+export FZF_DEFAULT_COMMAND='fd --type f'
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 
 # Aliases
 alias dots='git --git-dir=$HOME/.dots.git/ --work-tree=$HOME'
 alias open='xdg-open'
 alias la='ls -la'
+alias lb='nvim ~/.logbook/logbook.md'
+
+alias ltspice='wine "/home/marten/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe"'
+

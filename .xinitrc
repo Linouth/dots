@@ -1,40 +1,19 @@
 #!/bin/sh
 
 userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
-# merge in defaults and keymaps
-
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
 if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
-xkbcomp -w 0 ~/.config/xkbmap $DISPLAY
-
 
 if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# Configure multihead
+xrandr --output DP-1.8 --primary --preferred --auto --pos 0x0 --output HDMI-0 --rotate left --pos -1440x-536
 
 # Run reconfigure script
-cd ~/.themes && python reconfigure.py; cd
+cm --reconfigure
 
+# Launch WM
 exec i3

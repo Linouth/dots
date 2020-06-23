@@ -1,5 +1,14 @@
 #!/bin/sh
 
-[ -z "$1" ] || [ -z "$2" ] && echo "Usage: win_resize <x> <y>" && exit
+# TODO: use the following snippet to calculate a percentage.
+# Also, use i3 resize instead of xdotool
 
-xdotool windowsize $(xdotool getwindowfocus) "$1" "$2"
+# i3-msg -t get_workspaces | awk 'BEGIN { RS="},{"; FS=","; } ($5 == "\"focused\":true") { printf("%d -- %d\n", substr($8,9), substr($9,10,length($9)-10)) }'
+
+[ -z "$1" ] || [ -z "$2" ] && echo "Usage: win_resize <x> <y> [window_id]" && exit
+
+if [[ -z "$3" ]]; then
+    xdotool windowsize $(xdotool getwindowfocus) "$1" "$2"
+else
+    xdotool windowsize "$3" "$1" "$2"
+fi

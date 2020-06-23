@@ -1,0 +1,67 @@
+#!/bin/bash
+
+LAPTOP_MON="eDP-1-1"
+OPTIONS=$(cat <<EOF
+Extend
+Duplicate
+Only
+Off
+EOF
+)
+POSITIONS=$(cat <<EOF
+above
+below
+left-of
+right-of
+EOF
+)
+
+function menu {
+    out=$(rofi -dmenu -p "$1" -i -matching fuzzy <<< "$2")
+    # [[ -z "$out" ]] && echo 'Exitting'; exit;
+    echo "$out"
+}
+
+monitors=$(xrandr --query | awk '$2 == "connected" { print $1; }')
+mon=$(menu Monitor "$monitors"); [[ -z $mon ]] && exit;
+echo "1 $action: $mon"
+action=$(menu Action "$OPTIONS"); [[ -z $action ]] && exit;
+echo "2 $action: $mon"
+
+other_monitors=$(awk -v m="$mon" '$1 != m' <<< "$monitors")
+other_mons_count=$(wc -l <<< "$other_monitors")
+echo "3 $action: $mon"
+[[ $other_mons_count -eq 0 ]] && ( echo "No other monitors connected."; exit; )
+
+echo "$action: $mon"
+case "$action" in
+    Only)
+        while read line; do
+            xrandr --output "$line" --off
+        done <<< "$other_monitors"
+        xrandr --output "$mon" --auto --primary
+        ;;
+    Extend)
+        if [ $other_mons_count -gt 1 ]; then
+            other_mon=$(menu "Monitor to extend" "$other_monitors")
+        else
+            other_mon="$other_monitors"
+        fi
+
+        where=$(menu "Position" "$POSITIONS")
+        xrandr --output "$other_mon" --auto --output "$mon" --auto --$where "$other_mon"
+        ;;
+    Duplicate)
+        if [ $other_mons_count -gt 1 ]; then
+            other_mon=$(menu "Monitor to duplicate" "$other_monitors")
+        else
+            other_mon="$other_monitors"
+        fi
+        xrandr --output "$other_mon" --auto --output "$mon" --auto --same-as "$other_mon"
+        ;;
+    Off)
+        xrandr --output "$mon" --off
+        ;;
+    *)
+        exit 0
+esac

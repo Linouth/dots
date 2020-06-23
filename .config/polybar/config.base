@@ -1,9 +1,9 @@
 [colors]
-background = $background
-foreground = $foreground
-primary    = $color4
-secondary  = $selection
-alert      = $color9
+background = ${background}
+foreground = ${foreground}
+primary    = ${color4}
+secondary  = ${selection}
+alert      = ${color9}
 
 [bar/top]
 width = 100%
@@ -37,6 +37,9 @@ modules-right = alsa memory date
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
+[module/text]
+type = custom/text
+content = Work hard || Move  - 
 
 [module/date]
 type = internal/date
@@ -84,6 +87,7 @@ click-left = playerctl play-pause
 [module/alsa]
 type = internal/alsa
 
+master-soundcard = hw:0
 master-mixer = Master
 
 format-volume = <ramp-volume> <label-volume>
