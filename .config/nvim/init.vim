@@ -36,8 +36,9 @@ let maplocalleader = "\\"
 " ===== Playground =====
 
 " Things to remember:
-" - *
-" - %
+" - * (forward)
+" - # (backward)
+" - % (this line)
 
 " Use <Space> for movement actions,
 " Use <Leader> for anything else custom
@@ -101,8 +102,16 @@ xmap ic <plug>(signify-motion-inner-visual)
 omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
 
+
 nnoremap <silent> <Leader> :WhichKey ','<CR>
 nnoremap <silent> <space> :WhichKey '<Space>'<CR>
+
+" Configure <Leader> <i> to jump to window <i>
+let i = 1
+while i <= 9
+    execute 'nnoremap <Leader>' . i . ' :' . i . 'wincmd w<CR><c-w>_'
+    let i = i + 1
+endwhile
 
 " ===== END Playground =====
 " TODO: Clean this mess up...
@@ -130,7 +139,7 @@ set termguicolors
 colorscheme dracula
 
 function! StatusLine()
-    return '%1* %n %*'
+    return '%1* %{winnr()} %*'
         \. '%2*%{StatusCoc()}%*'
         \. ' %<%.30f '
         \. '%3*%m%r%*'

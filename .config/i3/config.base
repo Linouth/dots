@@ -68,7 +68,7 @@ for_window [class="^dd"] move scratchpad
 exec --no-startup-id picom
 
 # Setting wallpaper
-exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/.wallpaper
+exec --no-startup-id feh --bg-fill --no-xinerama ~/Pictures/Wallpapers/.wallpaper
 
 # Launch Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
