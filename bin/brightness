@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]
+then
+    echo "Run as root."
+    exit
+fi
+
+if [ -z "$1" ]
+then
+    echo "Usage: $0 <percentage>"
+    exit
+fi
+
+DEVICES=( dev:/dev/i2c-6 dev:/dev/i2c-3 )
+
+modprobe i2c-dev
+
+for dev in "${DEVICES[@]}"
+do
+    ddccontrol -r 0x10 -w $1 $dev 1>/dev/null &
+done
+
