@@ -53,9 +53,14 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
 path+=$HOME/bin
 path+=$HOME/.local/bin
 
-# Configure ESP-IDF
+# Configure ESP-IDF and ESP-ADF
 export IDF_PATH=$HOME/src/esp/esp-idf
-alias idfexport='. $IDF_PATH/export.sh'
+export ADF_PATH=$HOME/src/esp/esp-adf
+alias get_idf='. $IDF_PATH/export.sh'
+
+# Configure Cypress SDK
+export CY_PATH=$HOME/Documents/SPOCK/nedap-security-management-case/EZ-USB/sdk
+alias get_cypress='. $CY_PATH/export.sh'
 
 # Add git prompt function
 function git_prompt_info() {
@@ -80,6 +85,11 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
 # Aliases
+alias n='kitty --detach'
 alias dots='git --git-dir=$HOME/.dots.git/ --work-tree=$HOME'
 alias open='xdg-open'
 alias la='ls -la'
+alias lb='nvim ~/.logbook/logbook.md'
+
+alias ltspice='wine "/home/marten/.wine/drive_c/Program Files/LTC/LTspiceXVII/XVIIx64.exe"'
+
