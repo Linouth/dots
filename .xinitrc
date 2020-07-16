@@ -10,7 +10,7 @@ if [ -d "$HOME/bin" ]; then
 fi
 
 # Configure multihead
-xrandr --output DP-1.8 --primary --preferred --auto --pos 0x0 --output HDMI-0 --rotate left --pos -1440x-555
+automon
 
 # Run reconfigure script
 cm --reconfigure

@@ -57,7 +57,7 @@ vnoremap <Leader>' c''<esc>P
 inoremap jl <esc>
 inoremap <esc> <nop>
 
-nnoremap Y "+y
+noremap Y "+y
 
 nnoremap - <c-w>_
 nnoremap = <c-w>=
